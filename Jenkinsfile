@@ -1,8 +1,8 @@
 pipeline {
     environment {
-        registry = 'coraza666/k8s-cluster1'
+        registry = "coraza666/k8s-cluster1"
         registryCredential = 'dockerhub'
-        dockerImage='k8s-cluster1'
+        dockerImage= ''
     }
 
     agent any
@@ -18,7 +18,7 @@ pipeline {
       steps{
         script {
           dockerImage = docker.build registry 
-        }
+        }   
       }
     }
 
@@ -26,7 +26,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( '' ) {
-            dockerImage.push('')
+            dockerImage.push()
           }
         }
       }
