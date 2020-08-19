@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    environment {
+        registry = "coraza666/k8s-cluster1"
+        registryCredential = 'dockerhub'
+        dockerImage=''
+    }
 
     stages {
 
@@ -12,7 +16,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          docker.build ('Dockerfile')
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
