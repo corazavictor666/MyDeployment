@@ -1,5 +1,9 @@
 pipeline {
     agent any
+        environment {
+        
+	//Add Docker user
+        DOCKER_IMAGE_NAME = "coraza666/k8s-cluster1"
 
     stages {
 
@@ -12,7 +16,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          app = docker.build(DOCKER_IMAGE_NAME)
         }
       }
     }   
