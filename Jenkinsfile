@@ -1,10 +1,8 @@
 pipeline {
     agent any
         environment {
-        
-	//Add Docker user
-        DOCKER_IMAGE_NAME = "coraza666/k8s-cluster1"
-
+        dockerImage = ""
+  }
     stages {
 
     stage('Checkout Source') {
@@ -12,12 +10,32 @@ pipeline {
         git 'https://github.com/corazavictor666/MyDeployment.git'
       }
     }
-           }
+           
     stage('Build image') {
       steps{
         script {
-          app = docker.build(DOCKER_IMAGE_NAME)
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
-    }   
+    }
+
+    stage('Push Image') {
+      steps{
+        script {
+          docker.withRegistry( "" ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+
+    stage('Deploy App') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "backend.yaml", kubeconfigId: "kubeconfig")
+        }
+      }
+    }
+
+  }
 }
