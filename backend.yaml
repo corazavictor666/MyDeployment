@@ -16,7 +16,7 @@ spec:
         spec:
             containers:
             - name: backend-client
-              image: coraza666/k8s-cluster1:v3
+              image: coraza666/k8s-cluster1:1
 ---
 apiVersion: v1
 kind: Service

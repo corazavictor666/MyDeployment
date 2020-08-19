@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "coraza666/k8s-cluster1"
+        registry = 'coraza666/k8s-cluster1'
         registryCredential = 'dockerhub'
         dockerImage=''
     }
