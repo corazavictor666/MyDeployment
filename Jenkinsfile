@@ -1,8 +1,6 @@
 pipeline {
     agent any
-        environment {
-        dockerImage = ""
-  }
+
     stages {
 
     stage('Checkout Source') {
@@ -14,7 +12,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          docker.build ('Dockerfile')
         }
       }
     }
