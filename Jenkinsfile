@@ -1,7 +1,5 @@
 pipeline {
     environment {
-        registry = "coraza666/k8s-cluster1"
-        registryCredential = 'dockerhub'
         dockerImage= ''
     }
 
@@ -17,7 +15,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          dockerImage = docker.build ("k8s-app-front")
         }   
       }
     }
@@ -25,18 +23,10 @@ pipeline {
     stage('Push Image') {
       steps{
         script {
-          docker.withRegistry('https://registry.hub.docker.com', registryCredential ) {
+          docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials' ) {
             dockerImage.push("${env.BUILD_NUMBER}")
-            dockerImage.push("lastest")
+            dockerImage.push("latest")
           }
-        }
-      }
-    }
-
-    stage('Deploy App') {
-      steps {
-        script {
-          kubernetesDeploy(configs: "backend.yaml", kubeconfigId: "kubeconfig")
         }
       }
     }
