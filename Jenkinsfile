@@ -13,14 +13,13 @@ pipeline {
           dockerImage = ('k8s-app-front')
         }
 
-        sh 'docker build -t k8s-app-front -f Dockerfile .'
       }
     }
 
-    stage('Deploy App') {
+    stage('Push Image') {
       steps {
         script {
-          kubernetesDeploy(configs: "backend.yaml", kubeconfigId: "kubeconfig")
+          dockerImage.push("lastest")
         }
 
       }
