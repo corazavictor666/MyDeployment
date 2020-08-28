@@ -1,6 +1,5 @@
 pipeline {
     environment {
-        CredentialID = corazavictor666
         dockerImage= ''
     }
 
@@ -22,14 +21,14 @@ pipeline {
     }
 
     stage('Push Image') {
-      steps{
-        script {
-            docker.withRegistry (RegistryURL, CredentialID) {
-              dockerImage.push("${env.BUILD_NUMBER}")
-              dockerImage.push("latest")
-            }
-        }
+      withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+         docker.withRegistry('', 'docker-hub-credentials') {
+            sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+            myImage.push("${env.BUILD_NUMBER}")
+            myImage.push("latest")
+            }   
       }
+
     }
 
     stage('Deploy App') {
