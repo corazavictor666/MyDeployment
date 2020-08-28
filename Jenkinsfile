@@ -1,8 +1,8 @@
 pipeline {
 
   environment {
-    registry = "172.16.14.26:9090"
-    dockerImage = "k8s-app-front"
+    registry = "172.16.14.26:5000/justme/myweb"
+    dockerImage = ""
   }
 
   agent any
@@ -18,7 +18,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          dockerImage = ("")
+          docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
