@@ -31,7 +31,7 @@ pipeline {
       }
     }
 
-    stage('Deploy App') {
+    stage('Deploy Kubernetes') {
         steps {
           script {
             kubernetesDeploy(configs: 'backend.yaml', credentialsType: 'kubernetes_2')
