@@ -16,7 +16,7 @@ spec:
         spec:
             containers:
             - name: backend-client
-              image: 172.16.14.26:5000/gcc/sample:1
+              image: 172.16.14.26:5000/gcc/sample
 ---
 apiVersion: v1
 kind: Service

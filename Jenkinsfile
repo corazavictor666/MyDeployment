@@ -16,7 +16,7 @@ pipeline {
     stage('Build image') {
         steps{
           script {
-            dockerImage = docker.build registry + ":$BUILD_NUMBER"
+            dockerImage = docker.build registry
         }   
       }
     }
@@ -34,7 +34,7 @@ pipeline {
     stage('Deploy App') {
         steps {
           script {
-            kubernetesDeploy(configs: "backend.yaml", kubeconfigId: "kubernetes_2")
+            kubernetesDeploy(configs: 'backend.yaml', credentialsType: 'kubernetes_2')
         }
       }
     }
