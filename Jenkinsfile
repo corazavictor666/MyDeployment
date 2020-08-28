@@ -2,7 +2,7 @@ pipeline {
 
   environment {
     registry = "172.16.14.26:9090"
-    dockerImage = ""
+    dockerImage = "k8s-app-front"
   }
 
   agent any
@@ -18,7 +18,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          dockerImage = ('k8s-app-front')
+          dockerImage = ("")
         }
       }
     }
