@@ -33,8 +33,8 @@ pipeline {
 
     stage('Deploy App') {
         steps {
-          withCredentials([string(credentialsId: 'kubernetes')]) {
-            kubernetesDeploy(configs: "backend.yaml")
+          script {
+            kubernetesDeploy(configs: "backend.yaml", kubeconfigId: "kubernetes_2")
         }
       }
     }
