@@ -23,14 +23,12 @@ pipeline {
     stage('Push Image') {
       steps{
         script {
-            sh "docker login -u coraza666 -p Persia$666" {
-              myImage.push("${env.BUILD_NUMBER}")
-              myImage.push("latest")
-            }   
+          docker.withRegistry( "" ) {
+            dockerImage.push()
+          }
+        }
       }
-
-    }
     }
   }
-  
 }
+  
