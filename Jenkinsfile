@@ -21,22 +21,16 @@ pipeline {
     }
 
     stage('Push Image') {
-      withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-         docker.withRegistry('', 'docker-hub-credentials') {
-            sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-            myImage.push("${env.BUILD_NUMBER}")
-            myImage.push("latest")
+      steps{
+        script {
+            sh "docker login -u ${USERNAME} -p ${PASSWORD}" {
+              myImage.push("${env.BUILD_NUMBER}")
+              myImage.push("latest")
             }   
       }
 
     }
-
-    stage('Deploy App') {
-      steps {
-        sh 'kubectl apply -f backend.yaml' 
-        
-      }
     }
-
   }
+  
 }
