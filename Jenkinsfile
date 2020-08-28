@@ -1,8 +1,7 @@
 pipeline {
     environment {
-        registry = "coraza666/k8s-cluster1"
-        registryCredential = 'dockerhub'
-        dockerImage= ''
+        registry = "172.16.14.26:5000/gcc/sample"
+        dockerImage = ""
     }
 
     agent any
@@ -25,9 +24,8 @@ pipeline {
     stage('Push Image') {
       steps{
         script {
-          docker.withRegistry('https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("${env.BUILD_NUMBER}")
-            dockerImage.push("lastest")
+          docker.withRegistry( "" ) {
+            dockerImage.push()
           }
         }
       }
