@@ -16,7 +16,8 @@ spec:
         spec:
             containers:
             - name: backend-client
-              image: coraza666/k8s-cluster1:1
+              image: k8s-app-front
+              imagePullPolicy: IfNotPresent
 ---
 apiVersion: v1
 kind: Service

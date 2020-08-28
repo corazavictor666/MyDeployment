@@ -31,5 +31,12 @@ pipeline {
       }
     }
 
+    stage('Deploy App') {
+      steps {
+        sh 'kubectl apply -f backend.yaml' 
+        
+      }
+    }
+
   }
 }
