@@ -1,29 +1,19 @@
 pipeline {
-    agent any
-    stages {
-
+  agent any
+  stages {
     stage('Checkout Source') {
       steps {
         git 'https://github.com/corazavictor666/MyDeployment.git'
       }
     }
-           
+
     stage('Build image') {
-      steps{
+      steps {
         script {
           dockerImage = ('k8s-app-front')
-        }   
-      }
-    }
-
-    stage('Push Image') {
-      steps{
-        script {
-          docker.withRegistry('https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("${env.BUILD_NUMBER}")
-            dockerImage.push("lastest")
-          }
         }
+
+        sh 'docker build -t k8s-app-front -f Dockerfile .'
       }
     }
 
@@ -32,6 +22,7 @@ pipeline {
         script {
           kubernetesDeploy(configs: "backend.yaml", kubeconfigId: "kubeconfig")
         }
+
       }
     }
 
