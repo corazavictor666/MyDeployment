@@ -1,33 +1,27 @@
 pipeline {
-
-  environment {
-    registry = "172.16.14.26:5000/justme/myweb"
-    dockerImage = ""
-  }
-
-  agent any
-
-  stages {
+    agent any
+    stages {
 
     stage('Checkout Source') {
       steps {
         git 'https://github.com/corazavictor666/MyDeployment.git'
       }
     }
-
+           
     stage('Build image') {
       steps{
         script {
-          docker.build registry + ":$BUILD_NUMBER"
-        }
+          dockerImage = ('k8s-app-front')
+        }   
       }
     }
 
     stage('Push Image') {
       steps{
         script {
-          docker.withRegistry( "" ) {
-            dockerImage.push()
+          docker.withRegistry('https://registry.hub.docker.com', registryCredential ) {
+            dockerImage.push("${env.BUILD_NUMBER}")
+            dockerImage.push("lastest")
           }
         }
       }
@@ -36,13 +30,10 @@ pipeline {
     stage('Deploy App') {
       steps {
         script {
-          kubernetesDeploy(configs: "backend.yaml", kubeconfigId: "kubernetes_access")
+          kubernetesDeploy(configs: "backend.yaml", kubeconfigId: "kubeconfig")
         }
       }
     }
 
   }
-
 }
-
-  

@@ -16,8 +16,7 @@ spec:
         spec:
             containers:
             - name: backend-client
-              image: 172.16.14.26:5000/justme/myweb
-              imagePullPolicy: IfNotPresent
+              image: coraza666/k8s-cluster1:v3
 ---
 apiVersion: v1
 kind: Service
@@ -32,5 +31,5 @@ spec:
     ports:
         - protocol: TCP
           port: 80
-          targetPort: 80
+          targetPort: 9090
   
