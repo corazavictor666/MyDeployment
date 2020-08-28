@@ -29,11 +29,7 @@ pipeline {
 
     stage('Deploy App') {
       steps {
-        script {
-          kubernetesDeploy(configs: "backend.yaml", kubeconfigId: "kubernetes_2")
-        }
-
-        kubernetesDeploy(configs: 'backend.yaml', credentialsType: 'kubernetes', ssh: 'admin@172.16.14.26')
+        kubernetesDeploy(configs: 'backend.yaml', credentialsType: 'kubernetes', ssh: 'admin@172.16.14.26', kubeConfig: 'kubernetes_2')
       }
     }
 
