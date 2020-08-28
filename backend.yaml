@@ -16,7 +16,7 @@ spec:
         spec:
             containers:
             - name: backend-client
-              image: k8s-app-front
+              image: 172.16.14.26:5000/justme/myweb
               imagePullPolicy: IfNotPresent
 ---
 apiVersion: v1
@@ -32,5 +32,5 @@ spec:
     ports:
         - protocol: TCP
           port: 80
-          targetPort: 9090
+          targetPort: 80
   
