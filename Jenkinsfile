@@ -32,9 +32,11 @@ pipeline {
     }
 
     stage('Deploy App') {
-        withKubeConfig([credentialsId: 'kubernetes', serverUrl: 'https://127.0.0.1']) {
-          sh 'kubectl apply -f backend.yaml'
-          }
+        steps {
+          script {
+            sh 'kubectl apply -f demo.yaml'
         }
       }
     }
+  }
+}
