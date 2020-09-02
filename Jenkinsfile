@@ -6,8 +6,9 @@ pipeline {
 
     agent {
       kubernetes {
+          cloud 'kubernetes'
           yamlFile 'backend.yaml'
-          container 'backend-client'
+          defaultContainer 'backend-client'
           label 'app-k8s-on'
       }
     }
@@ -40,7 +41,7 @@ pipeline {
   
     stage('Deploy Kubernetes') {
         steps {
-          sh 'kubectl apply -f backend.yaml'
+          sh 'app-k8s-on'
       }
     }
   }
