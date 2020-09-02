@@ -4,6 +4,14 @@ pipeline {
       dockerImage = ""
     }
 
+    agent {
+      kubernetes {
+          yamlFile 'backend.yaml'
+          container 'backend-client'
+          label 'app-k8s-on'
+      }
+    }
+    
     stages {
 
     stage('Checkout Source') {
@@ -27,12 +35,6 @@ pipeline {
               dockerImage.push()
           }
         }
-      }
-    }
-
-    agent {
-      kubernetes {
-          yamlFile 'backend.yaml'
       }
     }
   
