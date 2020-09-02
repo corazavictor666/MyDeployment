@@ -4,11 +4,7 @@ pipeline {
       dockerImage = ""
     }
 
-    agent {
-      kubernetes {
-        yamlFile 'backend.yaml'
-      }
-    }
+    agent any
     
     stages {
 
@@ -37,6 +33,11 @@ pipeline {
     }
   
     stage('Deploy Kubernetes') {
+        agent {
+          kubernetes {
+            yamlFile 'backend.yaml'
+      }
+    }
         steps {
           sh 'kubectl apply -f backend.yaml'
       }
