@@ -34,7 +34,7 @@ pipeline {
     stage('Deploy Kubernetes') {
         steps {
           script {
-            kubernetesDeploy(configs: 'backend.yaml', credentialsType: 'kubernetes')
+            sh 'kubectl apply -f backend.yaml'
         }
       }
     }
