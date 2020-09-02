@@ -9,7 +9,7 @@ pipeline {
           cloud 'kubernetes'
           yamlFile 'backend.yaml'
           defaultContainer 'backend-client'
-          label 'app-k8s-on'
+          label 'master'
       }
     }
     
