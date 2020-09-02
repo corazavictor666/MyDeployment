@@ -9,6 +9,7 @@ pipeline {
           cloud 'kubernetes'
           yamlFile 'backend.yaml'
           defaultContainer 'backend-client'
+          label 'jenkins'
       }
     }
     
