@@ -9,7 +9,6 @@ pipeline {
           cloud 'kubernetes'
           yamlFile 'backend.yaml'
           defaultContainer 'backend-client'
-          label 'jenkins'
       }
     }
     
@@ -41,7 +40,7 @@ pipeline {
   
     stage('Deploy Kubernetes') {
         steps {
-          sh 'app-k8s-on'
+          sh 'kubectl apply -f backend.yaml'
       }
     }
   }
