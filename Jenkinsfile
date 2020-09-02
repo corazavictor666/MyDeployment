@@ -4,7 +4,10 @@ pipeline {
       dockerImage = ""
     }
 
-    agent any
+    agent {
+      label "k8s"
+    }
+    
     stages {
 
     stage('Checkout Source') {
@@ -33,9 +36,7 @@ pipeline {
 
     stage('Deploy Kubernetes') {
         steps {
-          script {
-            sh 'kubectl apply -f backend.yaml'
-        }
+          sh 'k8s'
       }
     }
   }
