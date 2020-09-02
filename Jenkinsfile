@@ -3,10 +3,6 @@ pipeline {
       registry = "172.16.14.26:5000/gcc/sample"
       dockerImage = ""
     }
-
-    agent {
-      label "k8s"
-    }
     
     stages {
 
@@ -35,8 +31,14 @@ pipeline {
     }
 
     stage('Deploy Kubernetes') {
+      agent {
+        kubernetes {
+          label 'k8s'
+          yamFile 'backend.yaml'
+        }
+      }
         steps {
-          sh 'k8s'
+          sh 'kubectl apply -f backend.yaml'
       }
     }
   }
