@@ -8,7 +8,7 @@ pipeline {
       kubernetes {
           cloud 'Kubernetes'
           yamlFile 'backend.yaml'
-          label 'backend'
+          label 'jenkins'
       }
     }
     
