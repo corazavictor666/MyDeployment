@@ -7,8 +7,7 @@ pipeline {
     agent {
       kubernetes {
           cloud 'Kubernetes'
-          yamlFile 'backend.yaml'
-          label 'jenkins'
+          yamlFile 'backend.yaml'          
       }
     }
     
