@@ -1,3 +1,5 @@
+def label = "my-build-${UUID.randomUUID().toString()}"
+
 pipeline {
     environment {
       registry = "172.16.14.26:5000/gcc/sample"
