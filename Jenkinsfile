@@ -5,7 +5,8 @@ pipeline {
     }
 
     agent {
-      Kubernetes {
+      kubernetes {
+          cloud 'Kubernetes'
           yamlFile 'backend.yaml'
           label 'backend'
       }
