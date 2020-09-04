@@ -17,7 +17,7 @@ pipeline {
     stage('Build image') {
         steps{
           script {
-            dockerImage = k8s-app-front
+            dockerImage = docker.build registry
         }   
       }
     }
@@ -26,7 +26,7 @@ pipeline {
         steps{
           script {
             docker.withRegistry( "" ){
-              dockerImage.push('k8s-app-front')
+              dockerImage.push()
           }
         }
       }
@@ -34,7 +34,7 @@ pipeline {
   
     stage('Deploy Docker Images') {
         steps {
-          sh 'docker run -d -p 80:9090 --name WebMain k8s-app-front . '
+          sh 'docker run -d -p 80:9090 --name WebMain $registry '
       }
     }
   }
