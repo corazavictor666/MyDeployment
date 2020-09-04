@@ -4,12 +4,7 @@ pipeline {
       dockerImage = ""
     }
 
-    agent {
-      kubernetes {
-          cloud 'Kubernetes'
-          yamlFile 'backend.yaml'          
-      }
-    }
+    agent any
     
     stages {
 
@@ -37,9 +32,9 @@ pipeline {
       }
     }
   
-    stage('Deploy Kubernetes') {
+    stage('Deploy Docker Images') {
         steps {
-          sh 'kubectl apply -f backend.yaml'
+          sh 'docker run -d $registry'
       }
     }
   }
