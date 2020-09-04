@@ -1,7 +1,7 @@
 pipeline {
     environment {
       registry = "172.16.14.26:5000/gcc/sample"
-      dockerImage = ""
+      dockerImage = "k8s-app-front"
     }
 
     agent any
@@ -17,7 +17,7 @@ pipeline {
     stage('Build image') {
         steps{
           script {
-            dockerImage = docker.build registry
+            dockerImage = k8s-app-front
         }   
       }
     }
@@ -26,7 +26,7 @@ pipeline {
         steps{
           script {
             docker.withRegistry( "" ){
-              dockerImage.push()
+              dockerImage.push('k8s-app-front')
           }
         }
       }
@@ -34,7 +34,7 @@ pipeline {
   
     stage('Deploy Docker Images') {
         steps {
-          sh 'docker run -d -p 80:9090 --name WebMain $registry '
+          sh 'docker run -d -p 80:9090 --name WebMain k8s-app-front . '
       }
     }
   }
