@@ -34,7 +34,7 @@ pipeline {
   
     stage('Deploy Docker Images') {
         steps {
-          sh 'docker run -d -p 80:9090 $registry '
+          sh 'docker run -d -p 80:9090 --name WebMain $registry '
       }
     }
   }
