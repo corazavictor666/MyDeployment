@@ -33,7 +33,7 @@ pipeline {
     }
   stage('Delete Images') {
         steps {
-          sh 'docker rm -fv --name WebMain'
+          sh 'docker rm -fv WebMain'
       }
     }
 
